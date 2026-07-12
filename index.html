@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vite & Gourmand | Traiteur Gastronomique de Luxe - Bordeaux</title>
+    <meta name="description" content="Découvrez l'excellence culinaire bordelaise chez vous. Commandez des menus de chefs locaux préparés avec soin pour vos événements, mariages, ou soirées de prestige. Conforme RGAA & sécurisé.">
+    <link rel="stylesheet" href="style.css">
+    <!-- Chart.js pour le graphique d'analyse des ventes de l'administrateur -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+</head>
+<body>
+
+    <!-- Lien d'évitement pour l'accessibilité (RGAA) -->
+    <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+
+    <!-- --- EN-TÊTE DE NAVIGATION (HEADER) --- -->
+    <header class="site-header" role="banner">
+        <div class="container nav-container">
+            <a href="#" class="logo-brand" data-view="accueil" aria-label="Vite et Gourmand - Retour à l'accueil">
+                Vite & Gourmand<span class="logo-dot">.</span>
+            </a>
+            
+            <nav role="navigation" aria-label="Menu principal">
+                <ul class="nav-menu">
+                    <li><a href="#" class="nav-item active" data-view="accueil">Accueil</a></li>
+                    <li><a href="#" class="nav-item" data-view="carte">Notre Carte</a></li>
+                    <li><a href="#" class="nav-item" data-view="contact">Contact</a></li>
+                    
+                    <!-- Liens conditionnels selon la session (gérés en JS) -->
+                    <li id="nav-auth-item">
+                        <a href="#" class="nav-item btn btn-connexion" data-view="auth" id="nav-btn-connexion">
+                            Connexion
+                        </a>
+                    </li>
+                    <li id="nav-client-item" style="display: none;">
+                        <a href="#" class="nav-item" data-view="client">Mon Espace</a>
+                    </li>
+                    <li id="nav-admin-item" style="display: none;">
+                        <a href="#" class="nav-item btn btn-gold" data-view="admin" id="nav-btn-admin">
+                            Espace Chef
+                        </a>
+                    </li>
+                    <li id="nav-logout-item" style="display: none;">
+                        <a href="#" class="nav-item text-danger" id="nav-btn-logout">Déconnexion</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div id="main-content"></div>
+
+    <!-- ==================== VUE 1 : ACCUEIL ==================== -->
+    <main id="view-accueil" class="app-view active" role="main">
+        <!-- Section Héro -->
+        <section class="hero-section" style="background-image: url('assets/hero_background.png');" aria-label="Introduction">
+            <div class="hero-overlay"></div>
+            <div class="container" style="position: relative; z-index: 5;">
+                <div class="hero-content">
+                    <p class="hero-tagline">Gastronomie Bordelaise</p>
+                    <h1 class="hero-title">L'Excellence Culinaire à Votre Portée</h1>
+                    <p class="hero-desc">De 2 à 300 convives, nous livrons et préparons des expériences gastronomiques sur-mesure d'exception avec nos chefs partenaires à Bordeaux.</p>
+                    <div class="hero-buttons">
+                        <a href="#" class="btn btn-gold btn-decouvrir">Découvrir notre carte</a>
+                        <a href="#" class="btn btn-secondary btn-devis-general" style="color: white; border-color: white;">Réserver un événement</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Histoire & Tradition -->
+        <section class="tradition-section" aria-label="Histoire">
+            <div class="container">
+                <div class="tradition-grid">
+                    <div class="tradition-image-wrapper">
+                        <img class="tradition-image" src="assets/festin_aquitain.png" alt="Julie et José en cuisine - 25 ans d'expérience traiteur" onerror="this.src='https://images.unsplash.com/photo-1544025162-d76694265947?w=600'">
+                        <div class="tradition-badge">
+                            <div class="num">25</div>
+                            <div class="txt">Ans de passion</div>
+                        </div>
+                    </div>
+                    <div class="tradition-text">
+                        <span class="section-label">25 ans d'excellence</span>
+                        <h2 class="section-title">De la Tradition vers l'Innovation</h2>
+                        <p>Fondée au cœur de Bordeaux, <strong>Vite & Gourmand</strong> est née de la rencontre entre le savoir-faire traditionnel et la passion pour la modernité de Julie et José. Nos chefs s'inspirent des plus belles tables de la région pour vous proposer des recettes exclusives qui subliment notre terroir.</p>
+                        <p>Chaque menu est conçu en collaboration étroite avec nos producteurs locaux, dans le respect des saisons, pour vous assurer fraîcheur et qualité gustative optimale à chaque bouchée.</p>
+                        
+                        <ul class="tradition-points">
+                            <li class="tradition-point-item">
+                                <svg class="tradition-point-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                                <span>Ingrédients 100% Locaux et Saisonniers</span>
+                            </li>
+                            <li class="tradition-point-item">
+                                <svg class="tradition-point-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                                <span>Équipe de Chefs et Professionnalisme</span>
+                            </li>
+                            <li class="tradition-point-item">
+                                <svg class="tradition-point-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+                                <span>Logistique et Service Éco-Responsables</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Signatures -->
+        <section class="signatures-section" aria-label="Engagements">
+            <div class="container text-center">
+                <span class="section-label">Notre Engagement</span>
+                <h2 class="section-title">La Signature Vite & Gourmand</h2>
+                <p style="color: var(--color-text-light); max-width: 600px; margin: 0 auto;">Un service irréprochable et des saveurs inoubliables pour tous vos moments importants.</p>
+                
+                <div class="signatures-grid">
+                    <div class="signature-card">
+                        <div class="signature-icon">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <h3>Fiabilité Absolue</h3>
+                        <p>Une logistique rigoureuse garantissant une livraison à température idéale et un respect strict des délais de votre événement.</p>
+                    </div>
+                    <div class="signature-card">
+                        <div class="signature-icon">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                        </div>
+                        <h3>Qualité Supérieure</h3>
+                        <p>Chaque ingrédient est sélectionné pour sa fraîcheur et ses qualités gustatives exceptionnelles par nos chefs partenaires.</p>
+                    </div>
+                    <div class="signature-card">
+                        <div class="signature-icon">
+                            <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        </div>
+                        <h3>Terroir Local</h3>
+                        <p>Mise en valeur exclusive des circuits courts et des maraîchers, viticulteurs et éleveurs de la grande région bordelaise.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Avis Clients -->
+        <section class="testimonials-section" aria-label="Témoignages clients">
+            <div class="container">
+                <div class="testimonials-header">
+                    <div>
+                        <span class="section-label">Avis de nos convives</span>
+                        <h2 class="section-title" style="margin-bottom:0;">Ce qu'en disent nos clients</h2>
+                    </div>
+                    <div class="carousel-controls">
+                        <button class="carousel-btn" id="testimonials-prev" aria-label="Avis précédent">&larr;</button>
+                        <button class="carousel-btn" id="testimonials-next" aria-label="Avis suivant">&rarr;</button>
+                    </div>
+                </div>
+
+                <div class="testimonials-track" id="public-reviews-container">
+                    <!-- Rempli dynamiquement en JS (avis validés) -->
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Banner -->
+        <section class="cta-banner" aria-label="Appel à l'action">
+            <div class="cta-content">
+                <h2 class="cta-title">Prêt à régaler vos convives ?</h2>
+                <p class="cta-desc">Contactez-nous dès aujourd'hui pour concevoir votre menu sur-mesure ou commandez directement sur notre carte.</p>
+                <a href="#" class="btn btn-gold btn-decouvrir">Découvrir les Menus</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- ==================== VUE 2 : LA CARTE ==================== -->
+    <main id="view-carte" class="app-view" role="main">
+        <div class="container carte-container">
+            <!-- Sidebar Filtres -->
+            <aside class="filters-sidebar" aria-label="Filtres de recherche">
+                <div class="filter-group">
+                    <h3 class="filter-title"><label for="search-menu-input">Rechercher</label></h3>
+                    <div class="search-input-wrapper">
+                        <input type="text" id="search-menu-input" class="search-input" placeholder="ex. canard, cèpes...">
+                        <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h3 class="filter-title"><label for="price-range-input">Prix Max (pers.)</label></h3>
+                    <div class="price-slider-wrapper">
+                        <input type="range" id="price-range-input" min="30" max="100" value="100">
+                        <div class="price-range-labels">
+                            <span>30€</span>
+                            <span id="price-range-val" class="text-gold" style="font-weight: 600;">100€</span>
+                            <span>100€</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <h3 class="filter-title">Thème</h3>
+                    <label class="filter-checkbox-label">
+                        <input type="checkbox" class="theme-checkbox" data-theme="classique" checked>
+                        <span>Classique</span>
+                    </label>
+                    <label class="filter-checkbox-label">
+                        <input type="checkbox" class="theme-checkbox" data-theme="Noel">
+                        <span>Noël</span>
+                    </label>
+                    <label class="filter-checkbox-label">
+                        <input type="checkbox" class="theme-checkbox" data-theme="Paques">
+                        <span>Pâques</span>
+                    </label>
+                    <label class="filter-checkbox-label">
+                        <input type="checkbox" class="theme-checkbox" data-theme="evenement">
+                        <span>Événement</span>
+                    </label>
+                </div>
+
+                <div class="filter-group">
+                    <h3 class="filter-title">Régime alimentaire</h3>
+                    <label class="filter-checkbox-label">
+                        <input type="checkbox" class="regime-checkbox" data-regime="classique" checked>
+                        <span>Classique</span>
+                    </label>
+                    <label class="filter-checkbox-label">
+                        <input type="checkbox" class="regime-checkbox" data-regime="vegetarien" checked>
+                        <span>Végétarien</span>
+                    </label>
+                    <label class="filter-checkbox-label">
+                        <input type="checkbox" class="regime-checkbox" data-regime="vegan" checked>
+                        <span>Vegan</span>
+                    </label>
+                </div>
+
+                <div class="filter-group">
+                    <h3 class="filter-title"><label for="pax-range-input">Nombre de Convives Min</label></h3>
+                    <div class="price-slider-wrapper">
+                        <input type="range" id="pax-range-input" min="2" max="50" value="4">
+                        <div class="price-range-labels">
+                            <span>2 pers.</span>
+                            <span id="pax-range-val" class="text-wine" style="font-weight: 600;">4</span>
+                            <span>50 pers.</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Grille des Menus -->
+            <section class="menus-grid-section" aria-label="Liste des Menus">
+                <div class="results-summary">
+                    <h2 class="section-title" style="margin-bottom:0; font-size: 2.2rem;">Notre Carte Gastronomique</h2>
+                    <span id="results-count-label" class="results-count">Chargement des menus...</span>
+                </div>
+                
+                <div class="menus-grid" id="menus-grid-container">
+                    <!-- Généré dynamiquement en JS -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ==================== VUE 3 : DÉTAIL D'UN MENU ==================== -->
+    <main id="view-detail" class="app-view" role="main">
+        <div class="container detail-grid">
+            <div class="detail-main">
+                <div class="detail-hero-wrapper">
+                    <img id="detail-hero-img" class="detail-hero-img" src="" alt="Image représentative du menu">
+                    <div class="detail-hero-overlay">
+                        <div class="detail-header-tags" id="detail-badges-container">
+                            <!-- Généré en JS -->
+                        </div>
+                        <h1 id="detail-title" class="detail-title">Chargement...</h1>
+                    </div>
+                </div>
+
+                <!-- Avertissement Important sur les Conditions (Exigence Métier Julie) -->
+                <div class="detail-conditions-banner alert-warning" role="alert">
+                    <h3 style="color: var(--color-primary-dark); font-weight: bold; margin-bottom: 6px;">⚠️ Conditions importantes de ce menu</h3>
+                    <p id="detail-conditions-text">Ce menu nécessite d'être commandé à l'avance. Veuillez lire attentivement les délais de préparation et de stockage ci-dessous.</p>
+                </div>
+
+                <div class="detail-desc-box">
+                    <p id="detail-desc-text" class="detail-desc-text">Chargement de la description du menu...</p>
+                </div>
+
+                <div class="composition-section">
+                    <h2>Composition du Menu</h2>
+                    
+                    <div class="course-group">
+                        <h3 class="course-title">Les Entrées au choix</h3>
+                        <div class="course-cards" id="composition-entrees"></div>
+                    </div>
+
+                    <div class="course-group">
+                        <h3 class="course-title">Le Plat de Résistance</h3>
+                        <div class="course-cards" id="composition-plats"></div>
+                    </div>
+
+                    <div class="course-group">
+                        <h3 class="course-title">La Note Sucrée</h3>
+                        <div class="course-cards" id="composition-desserts"></div>
+                    </div>
+                </div>
+
+                <div class="tarifs-section">
+                    <h3>Tarifs et Conditions Spéciales</h3>
+                    <p>Chaque plat peut contenir des allergènes identifiés sur les fiches ci-dessus. Une réduction de 10% s'applique sur le prix unitaire du menu si le nombre de convives est supérieur ou égal au minimum requis + 5 personnes.</p>
+                </div>
+            </div>
+
+            <!-- Estimator / Commande (Sidebar) -->
+            <aside class="sticky-estimator" aria-label="Estimation rapide">
+                <h3 class="estimator-title">Estimer ma Prestation</h3>
+                
+                <div class="filter-group">
+                    <h4 class="filter-title"><label for="calc-guests">Nombre de personnes</label></h4>
+                    <div class="price-slider-wrapper">
+                        <input type="range" id="calc-guests" min="1" max="100" value="12">
+                        <div class="price-range-labels">
+                            <span id="calc-min-pax-label">Min.</span>
+                            <span id="calc-guests-val" class="text-wine" style="font-weight: 700; font-size: 1.15rem;">12</span>
+                            <span>100 pers.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background-color: var(--color-bg); padding: 16px; border-radius: 8px; margin-bottom: 20px;">
+                    <div class="estimator-row">
+                        <span>Prix unitaire :</span>
+                        <span id="recap-unit-price" style="font-weight: 600;">-- € / pers.</span>
+                    </div>
+                    <div class="estimator-row" id="recap-discount-row" style="display: none; color: var(--color-success);">
+                        <span>Réduction (10%) :</span>
+                        <span id="recap-discount-price">-- €</span>
+                    </div>
+                    <div class="estimator-row" style="margin-bottom: 0;">
+                        <span>Stock disponible :</span>
+                        <span id="recap-stock" style="font-weight: 600;">-- menus</span>
+                    </div>
+                </div>
+
+                <div class="estimator-total">
+                    <span class="estimator-total-label">Sous-total Estimé :</span>
+                    <span class="estimator-total-price" id="recap-total-price">0.00€</span>
+                </div>
+
+                <div class="estimator-buttons">
+                    <button class="btn btn-primary" id="btn-order-now">Commander ce Menu</button>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- ==================== VUE : AUTHENTIFICATION ==================== -->
+    <main id="view-auth" class="app-view" role="main">
+        <div class="auth-split-container">
+            <!-- Côté gauche : Image et texte d'accroche (Figma style) -->
+            <div class="auth-left-banner" style="background-image: url('assets/hero_background.png');">
+                <div class="auth-banner-overlay"></div>
+                <div class="auth-left-brand" style="position: absolute; top: 40px; left: 40px; font-family: var(--font-heading); font-size: 2.2rem; font-weight: 700; color: white; z-index: 2;">
+                    Vite & Gourmand
+                </div>
+                <div class="auth-banner-content">
+                    <h2 class="auth-banner-title">L'excellence bordelaise, livrée avec soin.</h2>
+                    <p class="auth-banner-desc">Retrouvez le goût du terroir et le savoir-faire de nos chefs partenaires directement à votre table.</p>
+                </div>
+            </div>
+            
+            <!-- Côté droit : Formulaires (Connexion / Inscription) -->
+            <div class="auth-right-form-wrapper">
+                
+                <!-- Formulaire de Connexion (Figma exact style) -->
+                <form id="form-login" class="auth-form active">
+                    <h2 class="form-title" style="font-size: 2.4rem; font-family: var(--font-heading); color: var(--color-primary-dark); font-weight: 600; margin-bottom: 8px;">Bon retour parmi nous</h2>
+                    <p class="form-desc-text" style="color: var(--color-text-light); font-size: 0.95rem; margin-bottom: 32px;">Veuillez vous connecter pour accéder à votre espace.</p>
+                    
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label for="login-email" style="font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-light); margin-bottom: 8px;">Adresse Email</label>
+                        <div class="input-icon-wrapper" style="position: relative; width: 100%;">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--color-text-muted); pointer-events: none;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                            <input type="email" id="login-email" required placeholder="votre@email.com" style="width: 100%; padding: 12px 12px 12px 44px; border: 1px solid var(--color-border); border-radius: 6px; background-color: var(--color-bg); font-size: 0.95rem; transition: var(--transition);">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group" style="margin-bottom: 24px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                            <label for="login-password" style="font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-text-light); margin-bottom: 0;">Mot de passe</label>
+                            <button type="button" class="btn-link" id="btn-forgot-password" style="color: var(--color-primary); text-decoration: none; font-size: 0.8rem; font-weight: 600;">Mot de passe oublié ?</button>
+                        </div>
+                        <div class="input-icon-wrapper" style="position: relative; width: 100%;">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--color-text-muted); pointer-events: none;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                            <input type="password" id="login-password" required placeholder="••••••••" style="width: 100%; padding: 12px 44px 12px 44px; border: 1px solid var(--color-border); border-radius: 6px; background-color: var(--color-bg); font-size: 0.95rem; transition: var(--transition);">
+                            <button type="button" id="toggle-login-pass" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; font-size: 1rem; color: var(--color-text-light); cursor: pointer;" aria-label="Afficher le mot de passe">👁️</button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group checkbox-group" style="margin-top: 10px; margin-bottom: 24px; display: flex; align-items: center; gap: 8px;">
+                        <input type="checkbox" id="login-remember" style="margin: 0; cursor: pointer;">
+                        <label for="login-remember" style="text-transform: none; font-weight: 500; color: var(--color-text-light); font-size: 0.9rem; cursor: pointer; margin: 0;">Se souvenir de moi sur cet appareil</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100" style="background-color: var(--color-primary); padding: 14px; font-weight: bold; letter-spacing: 0.05em; font-family: var(--font-body); font-size: 0.9rem; border-radius: 6px; border: none; color: white;">SE CONNECTER &nbsp; &gt;</button>
+                    
+                    <!-- Raccords sociaux (Figma Style) -->
+                    <div class="social-login-separator" style="display: flex; align-items: center; text-align: center; margin: 24px 0; color: var(--color-text-muted); font-size: 0.85rem; text-transform: none;">
+                        <span style="background: white; padding: 0 10px; z-index: 2;">Ou continuer avec</span>
+                    </div>
+                    <div class="social-login-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 32px;">
+                        <button type="button" class="btn-social" onclick="alert('Simulation de connexion Google')" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; border: 1px solid var(--color-border); border-radius: 6px; background: white; font-weight: 600; color: var(--color-text); font-size: 0.9rem; cursor: pointer;">
+                            <svg viewBox="0 0 24 24" width="16" height="16"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+                            Google
+                        </button>
+                        <button type="button" class="btn-social" onclick="alert('Simulation de connexion Apple')" style="display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px; border: 1px solid var(--color-border); border-radius: 6px; background: white; font-weight: 600; color: var(--color-text); font-size: 0.9rem; cursor: pointer;">
+                            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C4.33 16.92 4.14 11.83 7.3 11.53c1.33.12 2.17.77 2.89.77.72 0 1.94-.87 3.61-.7 1.48.15 2.65.75 3.27 1.7-2.92 1.83-2.19 5.86.72 7.05-.59 1.46-1.34 2.85-2.74 3.93zm-2.62-10.7c-.12-1.79 1.34-3.52 3.1-3.67.22 1.98-1.5 3.84-3.1 3.67z"/></svg>
+                            Apple
+                        </button>
+                    </div>
+                    
+                    <p style="text-align: center; font-size: 0.95rem; color: var(--color-text-light);">
+                        Pas encore de compte ? <button type="button" class="btn-link" id="btn-goto-register" onclick="showAuthForm('form-register')" style="font-weight: 600; color: var(--color-primary); text-decoration: none;">Créer un compte</button>
+                    </p>
+                    
+                    <!-- SSL Secure Server Footer (Figma style) -->
+                    <div style="text-align: center; margin-top: 40px; font-size: 0.7rem; color: var(--color-text-muted); display: flex; align-items: center; justify-content: center; gap: 4px; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 600;">
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color: var(--color-text-muted);"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        Serveur sécurisé SSL 256-BIT
+                    </div>
+                </form>
+
+                <!-- Formulaire d'Inscription -->
+                <form id="form-register" class="auth-form">
+                    <h2 class="form-title" style="font-size: 2.2rem; font-family: var(--font-heading); color: var(--color-primary-dark); font-weight: 600; margin-bottom: 8px;">Créer votre compte client</h2>
+                    <p class="form-desc-text" style="color: var(--color-text-light); font-size: 0.95rem; margin-bottom: 24px;">Veuillez remplir vos informations pour commander.</p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="reg-first-name">Prénom</label>
+                            <input type="text" id="reg-first-name" required placeholder="Alexandre">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-last-name">Nom</label>
+                            <input type="text" id="reg-last-name" required placeholder="de Beaumont">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-email">Adresse e-mail</label>
+                        <input type="email" id="reg-email" required placeholder="a.debeaumont@premium-services.fr">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-phone">Numéro de GSM</label>
+                        <input type="tel" id="reg-phone" required placeholder="0612345678">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-address">Adresse postale complète</label>
+                        <textarea id="reg-address" required placeholder="12 Quai de la Monnaie, 33000 Bordeaux"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reg-password">Mot de passe sécurisé</label>
+                        <input type="password" id="reg-password" required placeholder="Min. 10 caractères...">
+                        <span class="password-hint">Exigence : 10 caractères min. composé d'un caractère spécial, une majuscule, une minuscule, et un chiffre.</span>
+                    </div>
+
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="reg-rgpd" required>
+                        <label for="reg-rgpd" style="text-transform: none; font-weight: normal; color: var(--color-text-light);">J'accepte que Vite & Gourmand traite mes données conformément au RGPD.</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100" style="margin-top: 10px;">Créer mon compte</button>
+                    
+                    <p style="text-align: center; margin-top: 24px; font-size: 0.95rem; color: var(--color-text-light);">
+                        Déjà un compte ? <button type="button" class="btn-link" id="btn-goto-login" onclick="showAuthForm('form-login')" style="font-weight: 600; color: var(--color-primary); text-decoration: none;">Se connecter</button>
+                    </p>
+                </form>
+
+                <!-- Formulaire Mot de Passe Oublié (Étape 1) -->
+                <form id="form-forgot" class="auth-form">
+                    <h2 class="form-title" style="font-size: 2.2rem; font-family: var(--font-heading); color: var(--color-primary-dark); font-weight: 600; margin-bottom: 8px;">Réinitialiser mon mot de passe</h2>
+                    <p class="form-desc-text">Saisissez votre e-mail pour recevoir un lien de réinitialisation.</p>
+
+                    <div class="form-group">
+                        <label for="forgot-email">Adresse e-mail du compte</label>
+                        <input type="email" id="forgot-email" required placeholder="a.debeaumont@premium-services.fr">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Envoyer le lien</button>
+                    <button type="button" class="btn btn-secondary w-100 mt-12" id="btn-back-login" onclick="showAuthForm('form-login')">Retour à la connexion</button>
+                </form>
+
+                <!-- Formulaire Réinitialisation Réelle (Étape 2 - simulation) -->
+                <form id="form-reset-password" class="auth-form">
+                    <h2 class="form-title" style="font-size: 2.2rem; font-family: var(--font-heading); color: var(--color-primary-dark); font-weight: 600; margin-bottom: 8px;">Choisir un nouveau mot de passe</h2>
+                    <p class="form-desc-text">Veuillez saisir votre nouveau mot de passe sécurisé.</p>
+                    
+                    <input type="hidden" id="reset-email">
+                    <input type="hidden" id="reset-token">
+
+                    <div class="form-group">
+                        <label for="reset-new-password">Nouveau mot de passe</label>
+                        <input type="password" id="reset-new-password" required placeholder="Min. 10 caractères...">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Modifier le mot de passe</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== VUE : FORMULAIRE DE COMMANDE ==================== -->
+    <main id="view-commande" class="app-view" role="main">
+        <div class="container order-page-container">
+            <h1 class="section-title">Finaliser votre Commande</h1>
+            
+            <form id="form-create-order" class="order-form-grid">
+                <!-- Formulaire Prestation -->
+                <div class="order-form-main">
+                    <div class="order-form-card">
+                        <h3>1. Coordonnées du Client</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ord-first-name">Prénom</label>
+                                <input type="text" id="ord-first-name" readonly class="input-readonly">
+                            </div>
+                            <div class="form-group">
+                                <label for="ord-last-name">Nom</label>
+                                <input type="text" id="ord-last-name" readonly class="input-readonly">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ord-email">Adresse E-mail</label>
+                                <input type="email" id="ord-email" readonly class="input-readonly">
+                            </div>
+                            <div class="form-group">
+                                <label for="ord-phone">Numéro de GSM (autofilled)</label>
+                                <input type="tel" id="ord-phone" required placeholder="06XXXXXXXX">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="order-form-card">
+                        <h3>2. Détails de la Prestation</h3>
+                        <div class="form-group">
+                            <label for="ord-address">Lieu / Adresse de livraison de la prestation</label>
+                            <textarea id="ord-address" required placeholder="Saisissez l'adresse de l'événement..."></textarea>
+                        </div>
+
+                        <div class="form-group checkbox-group" style="margin-bottom: 16px;">
+                            <input type="checkbox" id="ord-outside-bordeaux">
+                            <label for="ord-outside-bordeaux" style="font-weight: 600;">La livraison est en dehors de la ville de Bordeaux (+5€ + 0.59€ / km)</label>
+                        </div>
+
+                        <div class="form-group" id="group-distance" style="display: none;">
+                            <label for="ord-distance">Distance de livraison par rapport à Bordeaux (en km)</label>
+                            <input type="number" id="ord-distance" min="1" max="150" value="10" step="0.1">
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="ord-date">Date de la prestation</label>
+                                <input type="date" id="ord-date" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="ord-time">Heure de livraison souhaitée</label>
+                                <input type="time" id="ord-time" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Récapitulatif et validation (Sidebar) -->
+                <div class="order-form-sidebar">
+                    <div class="sticky-estimator">
+                        <h3 class="estimator-title">Récapitulatif Financier</h3>
+                        
+                        <div class="filter-group">
+                            <h4 class="filter-title">Menu Sélectionné</h4>
+                            <div style="font-weight: bold; font-size: 1.1rem; color: var(--color-primary-dark);" id="ord-menu-title">--</div>
+                            <input type="hidden" id="ord-menu-id">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="ord-guest-count">Nombre de personnes</label>
+                            <input type="number" id="ord-guest-count" required min="1" class="w-100" style="padding: 8px; border: 1px solid var(--color-border); border-radius: 6px;">
+                            <span class="password-hint" id="ord-min-pax-hint">Minimum de personnes requis : --</span>
+                        </div>
+
+                        <!-- Ticket Récapitulatif -->
+                        <div class="pricing-ticket" style="background-color: var(--color-bg); padding: 16px; border-radius: 8px; margin-top: 16px; border-left: 4px solid var(--color-secondary);">
+                            <div class="estimator-row">
+                                <span>Prix unitaire :</span>
+                                <span id="ord-recap-unit-price">-- €</span>
+                            </div>
+                            <div class="estimator-row">
+                                <span>Total Menu :</span>
+                                <span id="ord-recap-menu-total">-- €</span>
+                            </div>
+                            <div class="estimator-row" id="ord-recap-discount-row" style="display: none; color: var(--color-success);">
+                                <span>Réduction groupe (10%) :</span>
+                                <span id="ord-recap-discount-amount">-- €</span>
+                            </div>
+                            <div class="estimator-row">
+                                <span>Frais de livraison :</span>
+                                <span id="ord-recap-delivery-fee">-- €</span>
+                            </div>
+                        </div>
+
+                        <div class="estimator-total" style="margin-top: 16px;">
+                            <span class="estimator-total-label">Total Final :</span>
+                            <span class="estimator-total-price" id="ord-recap-total-price">0.00€</span>
+                        </div>
+
+                        <button type="submit" class="btn btn-gold w-100" style="margin-top: 16px;">Valider et Payer la commande</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+
+    <!-- ==================== VUE : ESPACE CLIENT (USER SPACE) ==================== -->
+    <main id="view-client" class="app-view" role="main">
+        <div class="container client-layout">
+            <!-- Sidebar Espace Client (comme sur la maquette Figma) -->
+            <aside class="admin-sidebar" aria-label="Navigation client">
+                <div>
+                    <div class="admin-menu-title" style="font-size: 1.4rem; font-weight: bold; margin-bottom: 24px;">
+                        Vite & Gourmand<span class="logo-dot">.</span>
+                        <div style="font-size: 0.75rem; font-weight: 500; color: var(--color-text-muted); text-transform: uppercase; margin-top: 4px;">Clientèle & Réservations</div>
+                    </div>
+                    <ul class="admin-nav-list">
+                        <li class="admin-nav-item active" id="client-nav-orders">
+                            Commandes
+                        </li>
+                        <li class="admin-nav-item" id="client-nav-menus-link">
+                            Menus & Plats
+                        </li>
+                        <li class="admin-nav-item" id="client-nav-profile-link">
+                            Clients
+                        </li>
+                        <li class="admin-nav-item" id="client-nav-stats-link">
+                            Statistiques
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="admin-chef-profile" style="border-top: 1px solid var(--color-border); padding-top: 20px;">
+                    <div class="chef-avatar" id="client-avatar-letters" style="background-color: var(--color-secondary-light); color: var(--color-primary-dark); font-weight: bold;">CL</div>
+                    <div class="chef-info">
+                        <h4 id="client-display-name">Mon Compte</h4>
+                        <p style="font-size: 0.8rem; color: var(--color-text-light);">Membre Gourmand</p>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Contenu Principal Client -->
+            <div class="admin-main">
+                <!-- En-tête de bienvenue client avec badge membre à droite -->
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; flex-wrap: wrap; gap: 16px;">
+                    <div>
+                        <h2 style="font-size: 2.2rem; font-family: var(--font-heading); color: var(--color-primary-dark);" id="client-greeting-title">Bonjour, Alexandre</h2>
+                        <p style="color: var(--color-text-light);">Ravi de vous revoir. Votre prochain délice bordelais n'est qu'à quelques clics.</p>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 12px; background: white; padding: 10px 16px; border-radius: 30px; border: 1px solid var(--color-border); box-shadow: var(--shadow-sm);">
+                        <div class="chef-avatar" id="client-badge-avatar" style="background-color: var(--color-primary); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: bold;">AB</div>
+                        <div>
+                            <div style="font-weight: 700; font-size: 0.85rem;" id="client-badge-name">Alexandre de B.</div>
+                            <div style="font-size: 0.7rem; color: var(--color-text-light);">Membre Élite depuis Oct. 2023</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grille du Dashboard Client (2 colonnes) -->
+                <div class="dashboard-bottom-grid" style="grid-template-columns: 1.2fr 1fr; gap: 24px; display: grid;">
+                    <!-- Colonne de Gauche : Points privilèges et Infos perso -->
+                    <div style="display: flex; flex-direction: column; gap: 24px;">
+                        <!-- Carte Statut Privilège -->
+                        <div style="background-color: var(--color-primary); color: white; border-radius: var(--border-radius); padding: 24px; position: relative; overflow: hidden; box-shadow: var(--shadow-md);">
+                            <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; opacity: 0.8;">Statut Privilège</div>
+                            <h3 style="color: white; font-family: var(--font-body); font-size: 1.1rem; margin-top: 4px;">ÉLITE GASTRONOMIQUE</h3>
+                            
+                            <div style="margin: 20px 0;">
+                                <span style="font-size: 2.8rem; font-weight: 800; font-family: var(--font-heading); color: var(--color-secondary);">4 850 pts</span>
+                                <div style="font-size: 0.85rem; opacity: 0.8; margin-top: 4px;">Objectif : 5 000 pts</div>
+                                <div style="background-color: rgba(255,255,255,0.15); height: 6px; border-radius: 3px; margin-top: 8px; position: relative; overflow: hidden;">
+                                    <div style="background-color: var(--color-secondary); width: 97%; height: 100%;"></div>
+                                </div>
+                            </div>
+                            <p style="font-size: 0.85rem; opacity: 0.9; line-height: 1.4;">Plus que 150 points pour débloquer votre prochain Chef Signature à domicile.</p>
+                        </div>
+
+                        <!-- Formulaire Informations Personnelles -->
+                        <div class="order-form-card" style="margin: 0;">
+                            <h3 style="font-family: var(--font-heading); color: var(--color-primary-dark); font-size: 1.4rem; border-bottom: 1px solid var(--color-border); padding-bottom: 12px; margin-bottom: 20px;">
+                                👤 Informations Personnelles
+                            </h3>
+                            <form id="form-update-profile" style="display: flex; flex-direction: column; gap: 16px;">
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label for="prof-fullname">Nom Complet</label>
+                                    <input type="text" id="prof-fullname" required placeholder="Alexandre de Beaumont">
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label for="prof-email">Adresse Email</label>
+                                    <input type="email" id="prof-email" required placeholder="a.debeaumont@premium-services.fr">
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label for="prof-phone">Numéro de Téléphone</label>
+                                    <input type="tel" id="prof-phone" required placeholder="+33 6 12 34 56 78">
+                                </div>
+                                <div class="form-group" style="margin-bottom: 0;">
+                                    <label for="prof-address">Adresse de Livraison Par Défaut</label>
+                                    <textarea id="prof-address" required placeholder="12 Quai de la Monnaie, 33000 Bordeaux" style="height: 80px;"></textarea>
+                                </div>
+                                <div style="display: flex; gap: 12px; justify-content: flex-end; margin-top: 10px;">
+                                    <button type="button" class="btn btn-secondary btn-sm" style="padding: 10px 20px; border: 1px solid var(--color-border);" onclick="navigateTo('carte')">Annuler</button>
+                                    <button type="submit" class="btn btn-primary btn-sm" style="padding: 10px 20px; background-color: var(--color-primary); color: white;">Enregistrer les modifications</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Colonne de Droite : Commandes Récentes -->
+                    <div style="background: white; border: 1px solid var(--color-border); border-radius: var(--border-radius); padding: 24px; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; gap: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 12px;">
+                            <h3 style="font-family: var(--font-heading); color: var(--color-primary-dark); font-size: 1.4rem; margin: 0;">📋 Commandes Récentes</h3>
+                            <button type="button" class="btn-link" id="btn-view-all-orders" style="font-weight: 600;">Voir tout l'historique</button>
+                        </div>
+
+                        <div id="client-orders-container" class="orders-list-wrapper" style="margin: 0; gap: 16px;">
+                            <!-- Injecté en JS (Commandes du client) -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== VUE : ESPACE ENSEMBLE CHEFS & ADMIN ==================== -->
+    <main id="view-admin" class="app-view" role="main">
+        <div class="container admin-layout">
+            <!-- Sidebar Administration (Figma style) -->
+            <aside class="admin-sidebar" aria-label="Navigation administration">
+                <div>
+                    <div class="admin-menu-title" style="font-size: 1.4rem; font-weight: bold; margin-bottom: 24px;">
+                        Vite & Gourmand<span class="logo-dot">.</span>
+                        <div style="font-size: 0.75rem; font-weight: 500; color: var(--color-text-muted); text-transform: uppercase; margin-top: 4px;">Administration</div>
+                    </div>
+                    <ul class="admin-nav-list" style="margin-top: 12px;">
+                        <li class="admin-nav-item active" id="admin-tab-dashboard">Tableau de bord</li>
+                        <li class="admin-nav-item" id="admin-tab-orders">Commandes</li>
+                        <li class="admin-nav-item" id="admin-tab-menus">Menus & Plats</li>
+                        <li class="admin-nav-item" id="admin-tab-statistics">Statistiques</li>
+                        <li class="admin-nav-item" id="admin-tab-reviews">Avis Clients</li>
+                        <li class="admin-nav-item" id="admin-tab-schedules">Horaires</li>
+                        <li class="admin-nav-item admin-only" id="admin-tab-employees" style="display: none;">Gestion Équipe</li>
+                    </ul>
+                </div>
+
+                <div class="admin-chef-profile" style="border-top: 1px solid var(--color-border); padding-top: 20px;">
+                    <div class="chef-avatar" id="admin-avatar-letters">JM</div>
+                    <div class="chef-info">
+                        <h4 id="admin-display-name">Chef Jean-Marc</h4>
+                        <p id="admin-display-role">Toque d'Or - Bordeaux</p>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Corps Principal Admin -->
+            <div class="admin-main">
+                
+                <!-- PANNEAU 1 : DASHBOARD (KPIs, COMMANDES À VALIDER, STOCKS & ÉQUIPE) -->
+                <div id="admin-panel-dashboard" class="admin-panel active">
+                    <div class="admin-header" style="margin-bottom: 24px;">
+                        <h2 style="font-size: 2.2rem; font-family: var(--font-heading); color: var(--color-primary-dark);">Bonjour, Chef</h2>
+                        <p style="color: var(--color-text-light);">Votre cuisine s'apprête à régaler Bordeaux. Voici l'état de votre service.</p>
+                    </div>
+
+                    <!-- Cartes KPIs de la maquette Figma -->
+                    <div class="kpis-grid" style="margin-bottom: 24px;">
+                        <div class="kpi-card" style="background: white; border: 1px solid var(--color-border); border-radius: var(--border-radius); padding: 20px;">
+                            <div class="kpi-details">
+                                <span class="kpi-title" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Commandes Totales</span>
+                                <span class="kpi-value" style="font-size: 2rem; font-weight: 700; color: var(--color-primary-dark); font-family: var(--font-heading); margin-top: 6px;">148</span>
+                            </div>
+                            <span class="kpi-trend up" style="color: var(--color-success); font-size: 0.8rem; font-weight: bold; margin-top: 4px; display: inline-block;">
+                                ● +10%
+                            </span>
+                        </div>
+                        <div class="kpi-card" style="background: white; border: 1px solid var(--color-border); border-radius: var(--border-radius); padding: 20px;">
+                            <div class="kpi-details">
+                                <span class="kpi-title" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;">Chiffre d'Affaires</span>
+                                <span class="kpi-value" style="font-size: 2rem; font-weight: 700; color: var(--color-primary-dark); font-family: var(--font-heading); margin-top: 6px;">12 450€</span>
+                            </div>
+                            <span class="kpi-trend up" style="color: var(--color-success); font-size: 0.8rem; font-weight: bold; margin-top: 4px; display: inline-block;">
+                                ● +5%
+                            </span>
+                        </div>
+                        <div class="kpi-card" style="background: var(--color-primary); color: white; border-radius: var(--border-radius); padding: 20px;">
+                            <div class="kpi-details">
+                                <span class="kpi-title" style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.8; font-weight: 600; color: white;">Meilleure Progression</span>
+                                <span class="kpi-value" style="font-size: 1.5rem; font-weight: 700; color: var(--color-secondary); font-family: var(--font-heading); margin-top: 6px; line-height: 1.2;">Plateau d'Automne</span>
+                            </div>
+                            <span style="font-size: 0.8rem; border: 1px solid rgba(255,255,255,0.4); padding: 2px 8px; border-radius: 4px; display: inline-block; margin-top: 8px;">Étoilé local</span>
+                        </div>
+                    </div>
+
+                    <!-- Commandes à valider -->
+                    <div class="admin-card" style="margin-bottom: 24px;">
+                        <div class="admin-card-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--color-border); padding-bottom: 12px; margin-bottom: 16px;">
+                            <h3 class="admin-card-title" style="margin: 0; font-size: 1.4rem;">
+                                Commandes à valider <span id="admin-pending-badge" style="background-color: var(--color-primary); color: white; border-radius: 12px; padding: 2px 8px; font-size: 0.75rem; margin-left: 6px; vertical-align: middle;">3</span>
+                            </h3>
+                            <button class="btn-link" style="font-weight: 600;" onclick="document.getElementById('admin-tab-orders').click()">Voir tout le carnet</button>
+                        </div>
+                        
+                        <div class="admin-table-wrapper">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Client</th>
+                                        <th>Menu / Articles</th>
+                                        <th>Montant</th>
+                                        <th style="text-align: center;">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-pending-table-body">
+                                    <!-- Rempli en JS (uniquement en_attente) -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Stocks & Équipe en service -->
+                    <div class="dashboard-bottom-grid" style="grid-template-columns: 1.2fr 1fr; gap: 24px; display: grid;">
+                        <!-- Gestion des Stocks -->
+                        <div class="admin-card" style="margin: 0; padding: 24px;">
+                            <div class="admin-card-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                                <h3 class="admin-card-title" style="margin: 0; font-size: 1.3rem;">Gestion des Stocks & Menus</h3>
+                                <button class="btn btn-secondary btn-sm" id="btn-add-menu-dashboard" onclick="document.getElementById('admin-tab-menus').click()">+ Ajouter</button>
+                            </div>
+                            <div class="stock-grid" id="admin-stock-grid" style="display: flex; flex-direction: column; gap: 12px;">
+                                <!-- Injecté en JS (avec alertes de stock bas) -->
+                            </div>
+                        </div>
+
+                        <!-- Équipe en Service -->
+                        <div class="admin-card" style="margin: 0; padding: 24px;">
+                            <div class="admin-card-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                                <h3 class="admin-card-title" style="margin: 0; font-size: 1.3rem;">Équipe en Service</h3>
+                                <button class="btn-link" style="font-weight: 600;" onclick="alert('Module plannings en cours de développement local.')">Gérer les plannings</button>
+                            </div>
+                            <div class="team-list" style="display: flex; flex-direction: column; gap: 12px;">
+                                <div class="team-member" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--color-border);">
+                                    <div class="member-profile" style="display: flex; align-items: center; gap: 12px;">
+                                        <div class="member-avatar" style="background-color: var(--color-secondary-light); color: var(--color-primary-dark); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.8rem;">LM</div>
+                                        <div>
+                                            <div class="member-name" style="font-weight: 600; font-size: 0.85rem;">Luc M.</div>
+                                            <div class="member-role" style="font-size: 0.7rem; color: var(--color-text-light);">Cuisine - Entrées</div>
+                                        </div>
+                                    </div>
+                                    <span class="status-dot active" style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--color-success);" title="En service"></span>
+                                </div>
+                                <div class="team-member" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--color-border);">
+                                    <div class="member-profile" style="display: flex; align-items: center; gap: 12px;">
+                                        <div class="member-avatar" style="background-color: var(--color-secondary-light); color: var(--color-primary-dark); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.8rem;">SR</div>
+                                        <div>
+                                            <div class="member-name" style="font-weight: 600; font-size: 0.85rem;">Sophie R.</div>
+                                            <div class="member-role" style="font-size: 0.7rem; color: var(--color-text-light);">Pâtissière</div>
+                                        </div>
+                                    </div>
+                                    <span class="status-dot active" style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--color-success);" title="En service"></span>
+                                </div>
+                                <div class="team-member" style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0;">
+                                    <div class="member-profile" style="display: flex; align-items: center; gap: 12px;">
+                                        <div class="member-avatar" style="background-color: var(--color-secondary-light); color: var(--color-primary-dark); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.8rem;">MV</div>
+                                        <div>
+                                            <div class="member-name" style="font-weight: 600; font-size: 0.85rem;">Marc V.</div>
+                                            <div class="member-role" style="font-size: 0.7rem; color: var(--color-text-light);">Logistique - Livraison</div>
+                                        </div>
+                                    </div>
+                                    <span class="status-dot active" style="width: 8px; height: 8px; border-radius: 50%; background-color: var(--color-success);" title="En service"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANNEAU 2 : COMMANDES -->
+                <div id="admin-panel-orders" class="admin-panel">
+                    <div class="admin-card">
+                        <div class="admin-card-header" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid var(--color-border); padding-bottom: 12px; margin-bottom: 16px;">
+                            <h3 class="admin-card-title" style="margin: 0;">Gestion de toutes les Commandes</h3>
+                            
+                            <!-- Filtres de recherche des commandes -->
+                            <div style="display: flex; gap: 12px;">
+                                <input type="text" id="admin-search-orders" placeholder="Rechercher client, menu..." style="padding: 6px; border: 1px solid var(--color-border); border-radius: 4px; font-size: 0.85rem;">
+                                <select id="admin-filter-status" style="padding: 6px; border: 1px solid var(--color-border); border-radius: 4px; font-size: 0.85rem;">
+                                    <option value="">Tous les statuts</option>
+                                    <option value="en_attente">En attente</option>
+                                    <option value="acceptee">Acceptée</option>
+                                    <option value="preparation">En préparation</option>
+                                    <option value="livraison">En livraison</option>
+                                    <option value="livree">Livrée</option>
+                                    <option value="retour_materiel">Retour Matériel</option>
+                                    <option value="terminee">Terminée</option>
+                                    <option value="annulee">Annulée</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="admin-table-wrapper">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Commande ID</th>
+                                        <th>Client / GSM</th>
+                                        <th>Adresse & Date</th>
+                                        <th>Menu & Convives</th>
+                                        <th>Montant</th>
+                                        <th>Statut</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-orders-table-body">
+                                    <!-- Rempli en JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANNEAU 3 : MENUS & PLATS CRUD -->
+                <div id="admin-panel-menus" class="admin-panel">
+                    <div class="admin-header-actions" style="display: flex; justify-content: space-between; margin-bottom: 16px; align-items: center;">
+                        <h2 style="font-size: 1.8rem; font-family: var(--font-heading); color: var(--color-primary-dark); margin: 0;">Gestion de la Carte des Menus</h2>
+                        <button class="btn btn-gold" id="btn-add-menu-modal">Ajouter un Menu</button>
+                    </div>
+
+                    <div class="admin-card">
+                        <div class="stock-grid" id="admin-menus-crud-grid">
+                            <!-- Rempli en JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANNEAU STATISTIQUES (Exigence Administrateur José - MongoDB) -->
+                <div id="admin-panel-statistics" class="admin-panel">
+                    <div class="admin-card">
+                        <div class="admin-card-header" style="justify-content: space-between; display: flex; flex-wrap: wrap; gap: 12px; border-bottom: 1px solid var(--color-border); padding-bottom: 12px; margin-bottom: 16px;">
+                            <h3 class="admin-card-title" style="margin: 0;">Comparaison des Ventes Menus (Données NoSQL MongoDB)</h3>
+                            
+                            <!-- Filtres de durée -->
+                            <div style="display: flex; gap: 8px; align-items: center;">
+                                <label for="stats-date-debut">Du</label>
+                                <input type="date" id="stats-date-debut" style="padding: 4px; font-size: 0.85rem;">
+                                <label for="stats-date-fin">Au</label>
+                                <input type="date" id="stats-date-fin" style="padding: 4px; font-size: 0.85rem;">
+                                <button class="btn btn-secondary btn-sm" id="btn-filter-stats" style="padding: 4px 10px;">Filtrer</button>
+                            </div>
+                        </div>
+                        <div style="position: relative; height: 350px; width: 100%; margin-top: 16px;">
+                            <canvas id="chart-statistics"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANNEAU 4 : HORAIRES -->
+                <div id="admin-panel-schedules" class="app-view" style="display:none;"></div> <!-- dummy to keep matching index -->
+                <div id="admin-panel-schedules-real" class="admin-panel">
+                    <div class="admin-card">
+                        <div class="admin-card-header" style="border-bottom: 1px solid var(--color-border); padding-bottom: 12px; margin-bottom: 16px;">
+                            <h3 class="admin-card-title" style="margin: 0;">Horaires d'ouverture de l'entreprise (Julie et José)</h3>
+                        </div>
+                        <form id="form-admin-schedules" style="max-width: 600px; padding: 16px;">
+                            <div id="admin-schedules-container">
+                                <!-- Généré en JS (Lundi au Dimanche) -->
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="margin-top: 16px;">Enregistrer les horaires</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- PANNEAU 5 : AVIS CLIENTS -->
+                <div id="admin-panel-reviews" class="admin-panel">
+                    <div class="admin-card">
+                        <div class="admin-card-header" style="border-bottom: 1px solid var(--color-border); padding-bottom: 12px; margin-bottom: 16px;">
+                            <h3 class="admin-card-title" style="margin: 0;">Modération des Avis Clients</h3>
+                        </div>
+                        <div class="admin-table-wrapper">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Client</th>
+                                        <th>Menu associé</th>
+                                        <th>Note</th>
+                                        <th>Commentaire</th>
+                                        <th>Statut</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-reviews-table-body">
+                                    <!-- Rempli en JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANNEAU 6 : GESTION ÉQUIPE (ADMIN SEULEMENT) -->
+                <div id="admin-panel-employees" class="admin-panel">
+                    <div class="admin-header-actions" style="display: flex; justify-content: space-between; margin-bottom: 16px; align-items: center;">
+                        <h2 style="font-size: 1.8rem; font-family: var(--font-heading); color: var(--color-primary-dark); margin: 0;">Gestion de l'équipe (Employés)</h2>
+                        <button class="btn btn-gold" id="btn-add-employee-modal">Ajouter un employé</button>
+                    </div>
+
+                    <div class="admin-card">
+                        <div class="admin-table-wrapper">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nom Complet</th>
+                                        <th>Adresse E-mail</th>
+                                        <th>Téléphone</th>
+                                        <th>Date de création</th>
+                                        <th>État</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="admin-employees-table-body">
+                                    <!-- Rempli en JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== VUE : FORMULAIRE DE CONTACT ==================== -->
+    <main id="view-contact" class="app-view" role="main">
+        <div class="container auth-container">
+            <div class="auth-box">
+                <h1 class="form-title">Nous contacter</h1>
+                <p class="form-desc-text">Vous avez des questions ? Envoyez-nous un message et nous vous répondrons par e-mail dans les plus brefs délais.</p>
+                
+                <form id="form-contact" style="margin-top: 16px;">
+                    <div class="form-group">
+                        <label for="con-email">Votre adresse e-mail</label>
+                        <input type="email" id="con-email" required placeholder="julie@gourmande.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="con-title">Objet du message (Titre)</label>
+                        <input type="text" id="con-title" required placeholder="Demande de devis pour baptême...">
+                    </div>
+                    <div class="form-group">
+                        <label for="con-desc">Votre message (Description)</label>
+                        <textarea id="con-desc" required placeholder="Saisissez les détails de votre demande ici..." style="height: 150px;"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Envoyer le message</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==================== VUE : MENTIONS LÉGALES / CGV ==================== -->
+    <main id="view-cgv" class="app-view" role="main">
+        <div class="container text-layout" style="padding: 40px 24px; max-width: 800px; background-color: white; border-radius: 8px; margin-top: 24px; border: 1px solid var(--color-border);">
+            <h1>Conditions Générales de Vente (CGV)</h1>
+            <p><strong>Dernière mise à jour : Juin 2026</strong></p>
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--color-border);">
+            <h3>1. Restitution de Matériel</h3>
+            <p>Lorsque du matériel professionnel (contenants isothermes, vaisselles de prestige, etc.) est prêté au client pour sa prestation, celui-ci doit le restituer dans un délai de <strong>10 jours ouvrés</strong> à compter de la date de livraison.</p>
+            <p><strong>En cas de non-restitution après 10 jours ouvrés, le client devra s'acquitter d'une pénalité forfaitaire de 600,00 € (Six cents euros).</strong></p>
+            <h3>2. Tarifs de groupe et livraison</h3>
+            <p>Une réduction de 10% s'applique sur le prix unitaire du menu si le nombre de convives est au moins égal au nombre minimal requis + 5.</p>
+            <p>Toute livraison en dehors de Bordeaux est facturée forfaitairement 5,00 € majoré de 0,59 € par kilomètre parcouru depuis Bordeaux.</p>
+        </div>
+    </main>
+
+    <main id="view-mentions" class="app-view" role="main">
+        <div class="container text-layout" style="padding: 40px 24px; max-width: 800px; background-color: white; border-radius: 8px; margin-top: 24px; border: 1px solid var(--color-border);">
+            <h1>Mentions Légales</h1>
+            <p><strong>Conformité RGPD et RGAA</strong></p>
+            <hr style="margin: 20px 0; border: 0; border-top: 1px solid var(--color-border);">
+            <p>L'entreprise <strong>Vite & Gourmand</strong> est une société constituée de deux personnes, Julie et José, établie à Bordeaux, France.</p>
+            <p><strong>Traitement des données personnelles (RGPD) :</strong> Les données collectées sur cette application (nom, prénom, GSM, adresse, e-mail) sont destinées exclusivement au traitement de vos commandes de restauration. Vous disposez d'un droit de rectification et de suppression de vos données en nous contactant.</p>
+            <p><strong>Accessibilité (RGAA) :</strong> Cette application est développée dans le respect du Référentiel Général d'Amélioration de l'Accessibilité pour garantir une expérience de lecture optimale aux personnes en situation de handicap.</p>
+        </div>
+    </main>
+
+    <!-- --- PIED DE PAGE (FOOTER) --- -->
+    <footer class="site-footer" role="contentinfo">
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <h4>Vite & Gourmand.</h4>
+                <p>Créateur d'émotions gastronomiques à domicile. Livraison de buffets chauds, repas gastronomiques et prestations de chefs de prestige dans toute la Gironde.</p>
+                <div class="social-links">
+                    <a href="#" class="social-icon" aria-label="Facebook">f</a>
+                    <a href="#" class="social-icon" aria-label="Instagram">i</a>
+                    <a href="#" class="social-icon" aria-label="Linkedin">l</a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h5>Informations</h5>
+                <ul class="footer-links" id="footer-schedules-list">
+                    <li>Horaires : Lun-Dim 8h-22h (Chargement...)</li>
+                    <li>Livraison : Gironde (33)</li>
+                    <li><a href="#" data-view="cgv">Conditions Générales de Vente (CGV)</a></li>
+                    <li><a href="#" data-view="mentions">Mentions légales</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h5>Navigation</h5>
+                <ul class="footer-links">
+                    <li><a href="#" data-view="accueil">Accueil</a></li>
+                    <li><a href="#" data-view="carte">Notre Carte</a></li>
+                    <li><a href="#" data-view="contact">Contactez-nous</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h5>Ressources ECF</h5>
+                <ul class="footer-links">
+                    <li><a href="backend/config/db_install.php" target="_blank" style="color: var(--color-secondary); font-weight: bold;">[Installer la Base de données]</a></li>
+                    <li><a href="backend/data/email_logs.txt" target="_blank" style="color: var(--color-secondary-dark);">[Inspecter les E-mails envoyés]</a></li>
+                    <li><a href="backend/data/nosql_fallback.json" target="_blank" style="color: var(--color-text-muted);">[Fichier NoSQL Fallback (JSON)]</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <span>&copy; 2026 Vite & Gourmand. Tous droits réservés. Conforme RGPD et RGAA.</span>
+            <span>Réalisé pour Bordeaux et sa région.</span>
+        </div>
+    </footer>
+
+    <!-- ==================== MODALES INTERACTIVES ==================== -->
+
+    <!-- Modale 1 : Motif d'annulation employé (Exigence Métier) -->
+    <div class="success-modal" id="cancel-motive-modal" role="dialog" aria-modal="true" aria-labelledby="cancel-title">
+        <div class="success-modal-content">
+            <h3 class="success-title" id="cancel-title" style="color: var(--color-danger);">⚠️ Motif d'annulation obligatoire</h3>
+            <p class="success-desc">L'équipe de Vite & Gourmand exige d'avoir préalablement contacté le client avant toute annulation de commande acceptée.</p>
+            
+            <form id="form-cancel-order">
+                <input type="hidden" id="cancel-ord-id">
+                <div class="form-group" style="text-align: left; margin-bottom: 12px;">
+                    <label for="cancel-contact-method" style="font-weight: 600;">Mode de contact client :</label>
+                    <select id="cancel-contact-method" required class="w-100" style="padding: 8px; border: 1px solid var(--color-border); border-radius: 4px;">
+                        <option value="appel GSM">Appel GSM (téléphone)</option>
+                        <option value="mail">Courriel (e-mail)</option>
+                    </select>
+                </div>
+                <div class="form-group" style="text-align: left; margin-bottom: 16px;">
+                    <label for="cancel-reason" style="font-weight: 600;">Motif de l'annulation :</label>
+                    <textarea id="cancel-reason" required placeholder="Expliquez la raison de l'annulation..." style="height: 100px; width: 100%; padding: 8px; border: 1px solid var(--color-border); border-radius: 4px;"></textarea>
+                </div>
+                <div style="display:flex; gap:12px; justify-content:center;">
+                    <button type="submit" class="btn btn-primary" style="padding: 10px 20px; font-size:0.85rem; background-color: var(--color-danger);">Confirmer l'annulation</button>
+                    <button type="button" class="btn btn-secondary" id="cancel-modal-close" style="padding: 10px 20px; font-size:0.85rem;">Fermer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modale 2 : CRUD Menu (Ajout / Modification) -->
+    <div class="success-modal" id="menu-crud-modal" role="dialog" aria-modal="true" aria-labelledby="menu-crud-title">
+        <div class="success-modal-content" style="max-width: 600px; text-align: left;">
+            <h3 class="success-title" id="menu-crud-title">Gérer le Menu</h3>
+            <form id="form-crud-menu" style="margin-top: 16px;">
+                <input type="hidden" id="crud-menu-id">
+                
+                <div class="form-group">
+                    <label for="crud-menu-title-input">Titre du Menu</label>
+                    <input type="text" id="crud-menu-title-input" required placeholder="ex. Buffet Festif Aquitain">
+                </div>
+                
+                <div class="form-group">
+                    <label for="crud-menu-desc">Description</label>
+                    <textarea id="crud-menu-desc" required placeholder="Description détaillée pour les clients..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="crud-menu-theme">Thème</label>
+                        <select id="crud-menu-theme" required>
+                            <option value="classique">Classique</option>
+                            <option value="Noel">Noël</option>
+                            <option value="Paques">Pâques</option>
+                            <option value="evenement">Événement</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="crud-menu-regime">Régime</label>
+                        <select id="crud-menu-regime" required>
+                            <option value="classique">Classique</option>
+                            <option value="vegetarien">Végétarien</option>
+                            <option value="vegan">Vegan</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="crud-menu-pax">Nombre de convives minimum</label>
+                        <input type="number" id="crud-menu-pax" min="1" required value="4">
+                    </div>
+                    <div class="form-group">
+                        <label for="crud-menu-price">Prix par personne (€)</label>
+                        <input type="number" id="crud-menu-price" min="5" required step="0.5" value="45">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="crud-menu-prep">Temps de préparation</label>
+                        <input type="text" id="crud-menu-prep" required placeholder="ex. 48h">
+                    </div>
+                    <div class="form-group">
+                        <label for="crud-menu-stock">Stock de commandes disponibles</label>
+                        <input type="number" id="crud-menu-stock" min="0" required value="5">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="crud-menu-image">Chemin de l'image (URL / local)</label>
+                    <input type="text" id="crud-menu-image" placeholder="ex. assets/festin_aquitain.png">
+                </div>
+
+                <div class="form-group">
+                    <label for="crud-menu-storage">Conditions de stockage / conservation</label>
+                    <textarea id="crud-menu-storage" placeholder="ex. Conserver entre 0°C et 4°C..."></textarea>
+                </div>
+
+                <div style="display:flex; gap:12px; justify-content:flex-end; margin-top: 24px;">
+                    <button type="submit" class="btn btn-gold">Enregistrer le menu</button>
+                    <button type="button" class="btn btn-secondary" id="crud-menu-close">Annuler</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modale 3 : CRUD Employé (Ajout) -->
+    <div class="success-modal" id="employee-crud-modal" role="dialog" aria-modal="true" aria-labelledby="emp-crud-title">
+        <div class="success-modal-content" style="max-width: 500px; text-align: left;">
+            <h3 class="success-title" id="emp-crud-title">Créer un nouveau compte employé</h3>
+            <form id="form-crud-employee" style="margin-top: 16px;">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="emp-first-name">Prénom</label>
+                        <input type="text" id="emp-first-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="emp-last-name">Nom</label>
+                        <input type="text" id="emp-last-name" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="emp-email">Adresse e-mail (username)</label>
+                    <input type="email" id="emp-email" required placeholder="nom@vitegourmand.fr">
+                </div>
+                <div class="form-group">
+                    <label for="emp-phone">Téléphone GSM</label>
+                    <input type="tel" id="emp-phone" required placeholder="06XXXXXXXX">
+                </div>
+                <div class="form-group">
+                    <label for="emp-password">Mot de passe provisoire</label>
+                    <input type="password" id="emp-password" required placeholder="••••••••">
+                    <span class="password-hint">L'employé recevra un e-mail lui notifiant la création de son compte. Il devra vous demander ce mot de passe de vive voix.</span>
+                </div>
+                <div style="display:flex; gap:12px; justify-content:flex-end; margin-top: 24px;">
+                    <button type="submit" class="btn btn-gold">Créer le compte employé</button>
+                    <button type="button" class="btn btn-secondary" id="crud-emp-close">Annuler</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modale 4 : Succès générale -->
+    <div class="success-modal" id="success-general-modal">
+        <div class="success-modal-content">
+            <div class="success-icon-wrap">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            <h3 class="success-title" id="success-general-title">Opération Réussie !</h3>
+            <p class="success-desc" id="success-general-desc">Détails de l'action accomplie.</p>
+            <button class="btn btn-primary" id="success-general-close" style="padding: 10px 20px; font-size:0.85rem;">Fermer</button>
+        </div>
+    </div>
+
+    <!-- Script de l'application -->
+    <script src="app.js"></script>
+</body>
+</html>
