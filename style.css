@@ -2278,3 +2278,26 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
     display: flex !important;
     flex-direction: column !important;
 }
+
+/* =======================================================
+   CORRECTION DE LA ZONE DE NAVIGATION ET DE L'ACCUEIL
+   ======================================================= */
+
+/* 1. On s'assure que le header ne dépasse pas 80px */
+.site-header {
+    height: 80px !important;
+}
+
+/* 2. On pousse l'application vers le bas pour que rien ne glisse sous le menu */
+.app-view {
+    padding-top: 80px !important; /* Même hauteur que le menu */
+}
+
+/* 3. On ajuste l'affichage de la section d'accueil (Hero) */
+.hero-section {
+    position: relative !important;
+    padding: 100px 0 !important; /* Espacement interne confortable pour le texte */
+    min-height: calc(85vh - 80px) !important; /* Hauteur dynamique et moderne */
+    display: flex !important;
+    align-items: center !important;
+}
