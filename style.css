@@ -289,7 +289,7 @@ button {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(58, 10, 24, 0.9) 0%, rgba(92, 17, 38, 0.6) 100%);
+    background: linear-gradient(135deg, rgba(58, 10, 24, 0.9) 0%, rgba(92, 17, 38, 0.6) 50%);
     z-index: 1;
 }
 
@@ -814,6 +814,7 @@ input[type="range"] {
     flex-direction: column;
     justify-content: space-between;
     flex-grow: 1;
+    gap: 16px;
 }
 
 .menu-card-title {
@@ -825,12 +826,13 @@ input[type="range"] {
     color: var(--color-text-light);
     font-size: 0.88rem;
     line-height: 1.5;
-    margin-bottom: 20px;
+    margin-bottom: 12px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    height: 60px;
+    height: auto; /* Changé de 60px à auto */
+    min-height: 60px;
 }
 
 .menu-card-meta {
@@ -1738,29 +1740,65 @@ input[type="range"] {
 }
 
 @media (max-width: 768px) {
+    /* Rendre le menu visible et compact sur mobile au lieu de le cacher */
+    .nav-container {
+        flex-wrap: wrap;
+        gap: 12px;
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
     .nav-menu {
-        display: none; /* simple burger menu can be added if needed */
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px 14px;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        list-style: none;
     }
-    .hero-title {
-        font-size: 2.6rem;
+    .nav-menu .nav-item {
+        font-size: 0.85rem;
+        padding: 6px 10px;
     }
-    .menus-grid {
-        grid-template-columns: 1fr;
+    .nav-menu .btn {
+        padding: 6px 12px !important;
+        font-size: 0.8rem;
     }
-    .course-cards {
-        grid-template-columns: 1fr;
+    .logo-brand {
+        font-size: 1.4rem;
     }
-    .kpis-grid {
-        grid-template-columns: 1fr;
+
+    /* Décaler le contenu pour compenser le header plus haut */
+    .app-view {
+        padding-top: 150px;
     }
-    .dashboard-bottom-grid {
-        grid-template-columns: 1fr;
-    }
-    .footer-grid {
-        grid-template-columns: 1fr;
-    }
+
+    .hero-title { font-size: 2.6rem; }
+    .menus-grid,
+    .course-cards,
+    .kpis-grid,
+    .dashboard-bottom-grid,
+    .footer-grid,
     .order-form-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* Très petits écrans : réduire encore */
+@media (max-width: 480px) {
+    .nav-menu {
+        gap: 6px 10px;
+    }
+    .nav-menu .nav-item {
+        font-size: 0.78rem;
+        padding: 5px 8px;
+    }
+    .logo-brand {
+        font-size: 1.2rem;
+    }
+    .app-view {
+        padding-top: 160px;
     }
 }
 
@@ -2205,3 +2243,38 @@ a:focus, button:focus, input:focus, select:focus, textarea:focus {
     }
 }
 
+.menu-card-body {
+    padding: 24px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    flex-grow: 1 !important;
+    gap: 16px !important;
+}
+
+.menu-card-desc {
+    height: auto !important; /* Force l'annulation des 60px bloqués */
+    min-height: 60px !important; /* Garde la cohérence d'alignement */
+    margin-bottom: 12px !important;
+}
+
+.menu-card-footer {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-top: auto !important; /* Pousse les boutons en bas proprement */
+}
+
+[class*="privilege"], [class*="loyalty"], [class*="fidelity"], [class*="statut"] {
+    position: relative !important; /* Supprime le chevauchement absolu */
+    width: 100% !important;
+    height: auto !important; /* Permet au badge de s'adapter au texte */
+    margin-bottom: 24px !important; /* Crée l'espace indispensable au-dessus du profil */
+}
+
+/* Assure que la fiche "Jean Client" en dessous reste souple */
+.order-client-card {
+    height: auto !important; 
+    display: flex !important;
+    flex-direction: column !important;
+}

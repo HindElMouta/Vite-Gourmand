@@ -52,9 +52,9 @@ try {
     
     echo "\n[4/4] INSTALLATION TERMINÉE AVEC SUCCÈS !\n\n";
     echo "Vous pouvez maintenant utiliser l'application avec les identifiants de test :\n";
-    echo "- Administrateur (José) : jose@vitegourmand.fr (Mot de passe : Password123!)\n";
-    echo "- Employé (Julie) : julie@vitegourmand.fr (Mot de passe : Password123!)\n";
-    echo "- Client de démonstration : client@demo.fr (Mot de passe : Password123!)\n";
+    echo "- Administrateur (José) : jose@vitegourmand.fr (Mot de passe : Admin123!)\n";
+    echo "- Employé (Julie) : julie@vitegourmand.fr (Mot de passe : Staff123!)\n";
+    echo "- Client de démonstration : client@demo.fr (Mot de passe : Client123!)\n";
     
 } catch (Exception $e) {
     http_response_code(500);

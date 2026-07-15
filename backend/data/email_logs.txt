@@ -1,0 +1,27 @@
+============================================================
+DATE : 2026-07-15 21:54:29
+DESTINATAIRE : client@demo.fr
+SUJET : Confirmation de votre commande - Vite & Gourmand (#3)
+------------------------------------------------------------
+Bonjour Jean,
+
+Nous vous remercions pour votre commande chez Vite & Gourmand ! Elle est en attente de validation par notre équipe.
+
+Récapitulatif de la prestation :
+- Commande ID : #3
+- Menu choisi : Éclat de Saison Vegan
+- Nombre de personnes : 8
+- Date de livraison : 2026-07-15 à 22:00
+- Adresse de livraison : 29 Rue La Bruyère
+------------------------------------------------------------
+- Prix du menu : 304.00 €
+- Frais de livraison : 0.00 €
+- Total TTC Estimé : 304.00 €
+
+Vous recevrez un nouvel e-mail dès que la commande aura été acceptée.
+
+À très bientôt,
+L'équipe Vite & Gourmand.
+
+============================================================
+

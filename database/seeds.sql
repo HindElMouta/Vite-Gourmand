@@ -12,13 +12,18 @@ INSERT INTO `roles` (`id`, `name`) VALUES
 ON DUPLICATE KEY UPDATE `name`=VALUES(`name`);
 
 -- 2. Insertion des Utilisateurs
--- Le mot de passe haché correspond à 'Password123!' (généré via password_hash('Password123!', PASSWORD_DEFAULT))
--- Hash : $2y$10$U.y2.4p/Z0Wd3VnC7P6/l.t3vI2D/qD3Gf8yY1G6iP8x0B2W2B2t2
+-- Mots de passe (bcrypt, PASSWORD_DEFAULT compatible) :
+--   jose@vitegourmand.fr  → Admin123!
+--   julie@vitegourmand.fr → Staff123!
+--   client@demo.fr        → Client123!
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `phone`, `postal_address`, `password_hash`, `role_id`, `is_active`) VALUES
-(1, 'José', 'Chef', 'jose@vitegourmand.fr', '0612345678', '12 Rue de la Rousselle, 33000 Bordeaux', '$2y$10$U.y2.4p/Z0Wd3VnC7P6/l.t3vI2D/qD3Gf8yY1G6iP8x0B2W2B2t2', 1, 1),
-(2, 'Julie', 'Logistique', 'julie@vitegourmand.fr', '0687654321', '24 Quai de la Monnaie, 33000 Bordeaux', '$2y$10$U.y2.4p/Z0Wd3VnC7P6/l.t3vI2D/qD3Gf8yY1G6iP8x0B2W2B2t2', 2, 1),
-(3, 'Jean', 'Client', 'client@demo.fr', '0699887766', '45 Rue des Trois-Conils, 33000 Bordeaux', '$2y$10$U.y2.4p/Z0Wd3VnC7P6/l.t3vI2D/qD3Gf8yY1G6iP8x0B2W2B2t2', 3, 1)
-ON DUPLICATE KEY UPDATE `email`=VALUES(`email`);
+(1, 'José',  'Chef',        'jose@vitegourmand.fr',  '0612345678', '12 Rue de la Rousselle, 33000 Bordeaux',   '$2y$10$/fRS9mPrKmQIYQH6zZq/c.kgbbzy9iPPsMJ0aFqaVYW8AsxK9DWeS', 1, 1),
+(2, 'Julie', 'Logistique',  'julie@vitegourmand.fr', '0687654321', '24 Quai de la Monnaie, 33000 Bordeaux',    '$2y$10$j0QEoRR/.zjoiZ4vtI0z0uroHN7NXE.3QtlFnsqjPY5UFkcCgEJKS', 2, 1),
+(3, 'Jean',  'Client',      'client@demo.fr',        '0699887766', '45 Rue des Trois-Conils, 33000 Bordeaux',  '$2y$10$5YWuvFpcOII2eoXElHF9yOlaKu0Yr8NfUIUO4dKxYq7Xoa0ddHLAK', 3, 1)
+ON DUPLICATE KEY UPDATE
+  `password_hash`=VALUES(`password_hash`),
+  `is_active`=VALUES(`is_active`),
+  `email`=VALUES(`email`);
 
 -- 3. Insertion des Horaires (Lundi au Dimanche, 8h-22h)
 INSERT INTO `schedules` (`day_of_week`, `open_time`, `close_time`, `is_closed`) VALUES
@@ -69,17 +74,11 @@ ON DUPLICATE KEY UPDATE `name`=VALUES(`name`), `description`=VALUES(`description
 
 -- 6. Association Menus & Plats
 INSERT INTO `menu_dishes` (`menu_id`, `dish_id`) VALUES
--- Festin Aquitain (Menu 1)
 (1, 1), (1, 2), (1, 8), (1, 14),
--- Duo de Canard (Menu 2)
 (2, 3), (2, 9), (2, 15),
--- L'Océan Bordelais (Menu 3)
 (3, 4), (3, 10), (3, 16),
--- Jardin d'Eden Truffé (Menu 4)
 (4, 5), (4, 11), (4, 17),
--- Le Rossini Signature (Menu 5)
 (5, 6), (5, 12), (5, 18),
--- Éclat de Saison Vegan (Menu 6)
 (6, 7), (6, 13), (6, 19)
 ON DUPLICATE KEY UPDATE `menu_id`=`menu_id`;
 
@@ -97,23 +96,23 @@ ON DUPLICATE KEY UPDATE `name`=VALUES(`name`);
 
 -- 8. Association Plats & Allergènes
 INSERT INTO `dish_allergens` (`dish_id`, `allergen_id`) VALUES
-(1, 1), -- Foie Gras Poêlé (brioche/gluten)
-(2, 7), -- Huîtres (mollusques)
-(3, 2), (3, 5), -- Velouté (lactose, noisettes)
-(4, 7), -- Saint-Jacques (mollusques)
-(5, 2), (5, 6), -- Asperges (sabayon = œufs, lactose)
-(6, 3), (6, 1), (6, 2), -- Raviole Homard (crustacés, gluten, lactose)
-(8, 2), -- Bœuf Bordelaise (écrasé truffé = lactose)
-(10, 4), (10, 2), -- Bar de ligne (poisson, beurre blanc = lactose)
-(11, 2), -- Risotto (lactose)
-(12, 1), (12, 2), -- Rossini (brioche = gluten, foie gras/beurre = lactose)
-(13, 1), (13, 5), -- Crumble (gluten, noisette)
-(14, 1), (14, 2), (14, 6), -- Canelés (gluten, lactose, œufs)
-(15, 1), (15, 6), -- Tarte fine (gluten, œufs)
-(16, 6), (16, 2), -- Pavlova (meringue = œufs, chantilly = lactose)
-(17, 5), (17, 6), -- Moelleux (châtaigne/fruits à coque, œufs)
-(18, 1), (18, 2), (18, 6), -- Opéra (gluten, lactose, œufs)
-(19, 5) -- Trio vegan (canelés revisités = traces de fruits à coque)
+(1, 1),
+(2, 7),
+(3, 2), (3, 5),
+(4, 7),
+(5, 2), (5, 6),
+(6, 3), (6, 1), (6, 2),
+(8, 2),
+(10, 4), (10, 2),
+(11, 2),
+(12, 1), (12, 2),
+(13, 1), (13, 5),
+(14, 1), (14, 2), (14, 6),
+(15, 1), (15, 6),
+(16, 6), (16, 2),
+(17, 5), (17, 6),
+(18, 1), (18, 2), (18, 6),
+(19, 5)
 ON DUPLICATE KEY UPDATE `dish_id`=`dish_id`;
 
 -- 9. Insertion de quelques Commandes pour Démo

@@ -69,14 +69,13 @@ vite-gourmand/
 ## 🛠️ Instructions de Déploiement Local
 
 ### Prérequis
-- Un serveur web local PHP (version 8.0 minimum) : **XAMPP**, **WAMP**, ou **MAMP**.
-- Un serveur de base de données **MySQL** (généralement inclus dans XAMPP/WAMP).
+- Un serveur web local PHP (version 8.0 minimum) : **XAMPP**.
+- Un serveur de base de données **MySQL** (généralement inclus dans XAMPP).
 - Un serveur **MongoDB** démarré en local (optionnel - l'application bascule automatiquement sur un fichier JSON NoSQL simulé en cas d'absence du driver PHP ou du serveur MongoDB pour faciliter l'évaluation).
 
 ### Étape 1 : Copier les fichiers du projet
 Déplacez l'intégralité du dossier `vite-gourmand/` dans le répertoire public de votre serveur local :
 - XAMPP : `C:\xampp\htdocs\vite-gourmand\`
-- WAMP : `C:\wamp64\www\vite-gourmand\`
 
 ### Étape 2 : Configuration de la Base de Données
 1. Assurez-vous que le serveur MySQL est démarré.

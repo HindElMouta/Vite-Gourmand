@@ -519,40 +519,41 @@ function renderOrderPage() {
         return;
     }
 
+    // Petit helper pour éviter les crashs si un élément n'existe pas encore dans le DOM
+    const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val; };
+    const setText = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+
     // Pré-remplir les données client
-    document.getElementById('ord-first-name').value = STATE.currentUser.first_name;
-    document.getElementById('ord-last-name').value = STATE.currentUser.last_name;
-    document.getElementById('ord-email').value = STATE.currentUser.email;
-    document.getElementById('ord-phone').value = STATE.currentUser.phone || '';
-    
-    document.getElementById('ord-menu-title').textContent = menu.name;
-    document.getElementById('ord-menu-id').value = menu.id;
-    
+    setVal('ord-first-name', STATE.currentUser.first_name);
+    setVal('ord-last-name', STATE.currentUser.last_name);
+    setVal('ord-email', STATE.currentUser.email);
+    setVal('ord-phone', STATE.currentUser.phone || '');
+
+    setText('ord-menu-title', menu.name);
+    setVal('ord-menu-id', menu.id);
+
     const guestInput = document.getElementById('ord-guest-count');
-    guestInput.min = menu.minPax;
-    guestInput.value = STATE.calculator.guests;
-    document.getElementById('ord-min-pax-hint').textContent = `Minimum de personnes requis : ${menu.minPax}`;
+    if (guestInput) {
+        guestInput.min = menu.minPax;
+        guestInput.value = STATE.calculator.guests;
+        guestInput.oninput = () => updateOrderPricing(menu);
+    }
+    setText('ord-min-pax-hint', `Minimum de personnes requis : ${menu.minPax}`);
 
     // Événement adresse en dehors de Bordeaux
     const chkOutside = document.getElementById('ord-outside-bordeaux');
     const distGroup = document.getElementById('group-distance');
     const distanceInput = document.getElementById('ord-distance');
 
-    chkOutside.checked = false;
-    distGroup.style.display = 'none';
-
-    chkOutside.onchange = () => {
-        distGroup.style.display = chkOutside.checked ? 'block' : 'none';
-        updateOrderPricing(menu);
-    };
-
-    distanceInput.oninput = () => {
-        updateOrderPricing(menu);
-    };
-
-    guestInput.oninput = () => {
-        updateOrderPricing(menu);
-    };
+    if (chkOutside) {
+        chkOutside.checked = false;
+        chkOutside.onchange = () => {
+            if (distGroup) distGroup.style.display = chkOutside.checked ? 'block' : 'none';
+            updateOrderPricing(menu);
+        };
+    }
+    if (distGroup) distGroup.style.display = 'none';
+    if (distanceInput) distanceInput.oninput = () => updateOrderPricing(menu);
 
     updateOrderPricing(menu);
 }
@@ -631,15 +632,21 @@ function initAuthTabs() {
 function showAuthForm(formId) {
     document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
     document.querySelectorAll('.auth-tab-btn').forEach(b => b.classList.remove('active'));
-    
+
     const target = document.getElementById(formId);
     if (target) target.classList.add('active');
-    
-    if (formId === 'form-login') {
-        const btn = document.getElementById('tab-login');
-        if (btn) btn.classList.add('active');
-    } else if (formId === 'form-register') {
-        const btn = document.getElementById('tab-register');
+
+    // Onglets visibles : login/register. Les formulaires "mot de passe oublié" et
+    // "réinitialisation" gardent l'onglet Connexion actif pour rester cohérents.
+    const tabMap = {
+        'form-login': 'tab-login',
+        'form-register': 'tab-register',
+        'form-forgot': 'tab-login',
+        'form-reset-password': 'tab-login',
+    };
+    const tabId = tabMap[formId];
+    if (tabId) {
+        const btn = document.getElementById(tabId);
         if (btn) btn.classList.add('active');
     }
 }
@@ -861,19 +868,22 @@ async function renderClientSpace() {
     const initials = STATE.currentUser.first_name.charAt(0) + STATE.currentUser.last_name.charAt(0);
     const fullname = STATE.currentUser.first_name + " " + STATE.currentUser.last_name;
     
-    document.getElementById('client-avatar-letters').textContent = initials;
-    document.getElementById('client-display-name').textContent = fullname;
+    const setText = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+    const setVal  = (id, v) => { const el = document.getElementById(id); if (el) el.value = v; };
+
+    setText('client-avatar-letters', initials);
+    setText('client-display-name', fullname);
 
     // En-tête Figma
-    document.getElementById('client-greeting-title').textContent = "Bonjour, " + STATE.currentUser.first_name;
-    document.getElementById('client-badge-avatar').textContent = initials;
-    document.getElementById('client-badge-name').textContent = STATE.currentUser.first_name + " " + STATE.currentUser.last_name.charAt(0) + ".";
+    setText('client-greeting-title', "Bonjour, " + STATE.currentUser.first_name);
+    setText('client-badge-avatar', initials);
+    setText('client-badge-name', STATE.currentUser.first_name + " " + STATE.currentUser.last_name.charAt(0) + ".");
 
     // Charger les formulaires profil
-    document.getElementById('prof-fullname').value = fullname;
-    document.getElementById('prof-email').value = STATE.currentUser.email || '';
-    document.getElementById('prof-phone').value = STATE.currentUser.phone || '';
-    document.getElementById('prof-address').value = STATE.currentUser.postal_address || '';
+    setVal('prof-fullname', fullname);
+    setVal('prof-email', STATE.currentUser.email || '');
+    setVal('prof-phone', STATE.currentUser.phone || '');
+    setVal('prof-address', STATE.currentUser.postal_address || '');
 
     // Gérer la navigation interne de la sidebar client Figma
     document.getElementById('client-nav-orders').onclick = (e) => { e.preventDefault(); navigateTo('client'); };
@@ -2022,6 +2032,82 @@ function getMockMenus() {
             },
             stock: 12,
             rating: 4.8
+        },
+        {
+            id: 3,
+            name: 'Océan Bordelais',
+            description: "Un voyage iodé au fil de l'estuaire. Ce menu célèbre les produits de la mer et de la Gironde, préparés avec finesse pour des saveurs marines authentiques.",
+            tag: 'Marin',
+            theme: 'poisson',
+            regime: 'pescetarien',
+            pricePerPerson: 55.00,
+            minPax: 10,
+            prepTime: '48h',
+            imageLocal: 'assets/ocean_bordelais.png',
+            composition: {
+                entrées: [{ name: "Huîtres du Bassin d'Arcachon", desc: "Six huîtres n°3, mignonette au vinaigre de Bordeaux.", image: 'https://images.unsplash.com/photo-1559737558-2f5a35f4523b?w=300', allergens: ['Mollusques'] }],
+                plats: [{ name: 'Bar de ligne rôti, beurre blanc', desc: 'Filet de bar sauvage, écrasé de pommes de terre à l\'huile d\'olive.', image: 'https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?w=300', allergens: ['Poisson', 'Lactose'] }],
+                desserts: [{ name: 'Pavlova aux fruits rouges', desc: 'Meringue croustillante, chantilly vanille, fruits rouges du Lot-et-Garonne.', image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=300', allergens: ['Œufs', 'Lactose'] }]
+            },
+            stock: 8,
+            rating: 4.7
+        },
+        {
+            id: 4,
+            name: "Jardin d'Éden",
+            description: "Une célébration végétale colorée et gourmande. Un menu 100% végétarien qui met à l'honneur les légumes de saison des maraîchers d'Aquitaine.",
+            tag: 'Végétarien',
+            theme: 'vegetarien',
+            regime: 'vegetarien',
+            pricePerPerson: 38.00,
+            minPax: 8,
+            prepTime: '24h',
+            imageLocal: 'assets/jardin_eden.png',
+            composition: {
+                entrées: [{ name: 'Tartelette fine aux légumes du soleil', desc: 'Pâte sablée au parmesan, tomates confites, courgettes et basilic.', image: 'https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=300', allergens: ['Gluten', 'Lactose'] }],
+                plats: [{ name: 'Risotto aux cèpes et truffe', desc: 'Riz carnaroli crémeux, cèpes poêlés, copeaux de truffe noire.', image: 'https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=300', allergens: ['Lactose'] }],
+                desserts: [{ name: 'Salade de fruits frais au miel', desc: 'Fruits de saison, miel du Sud-Ouest, feuilles de menthe.', image: 'https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?w=300', allergens: [] }]
+            },
+            stock: 15,
+            rating: 4.6
+        },
+        {
+            id: 5,
+            name: 'Douceur du Pays',
+            description: "Un menu réconfortant inspiré des recettes de grand-mère bordelaises. Des saveurs authentiques et généreuses pour un moment convivial.",
+            tag: 'Tradition',
+            theme: 'classique',
+            regime: 'classique',
+            pricePerPerson: 42.00,
+            minPax: 10,
+            prepTime: '48h',
+            imageLocal: 'assets/douceur_pays.png',
+            composition: {
+                entrées: [{ name: 'Salade landaise', desc: 'Gésiers confits, magret fumé, tomates, croûtons à l\'ail.', image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300', allergens: ['Gluten'] }],
+                plats: [{ name: 'Poulet fermier aux cèpes', desc: 'Volaille des Landes rôtie, cèpes du Périgord, jus corsé.', image: 'https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=300', allergens: [] }],
+                desserts: [{ name: 'Clafoutis aux cerises', desc: 'Clafoutis traditionnel aux cerises noires du Lot.', image: 'https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?w=300', allergens: ['Gluten', 'Lactose', 'Œufs'] }]
+            },
+            stock: 10,
+            rating: 4.5
+        },
+        {
+            id: 6,
+            name: 'Canelés & Douceurs',
+            description: "Un menu dessert dédié aux gourmands : la pâtisserie bordelaise sous toutes ses formes, idéal pour un buffet sucré ou une réception.",
+            tag: 'Sucré',
+            theme: 'dessert',
+            regime: 'vegetarien',
+            pricePerPerson: 22.00,
+            minPax: 15,
+            prepTime: '24h',
+            imageLocal: 'assets/caneles_douceurs.png',
+            composition: {
+                entrées: [{ name: 'Verrine crème vanille & fruits rouges', desc: 'Crème vanille de Madagascar, coulis de fruits rouges.', image: 'https://images.unsplash.com/photo-1488477181946-6428a0291777?w=300', allergens: ['Lactose', 'Œufs'] }],
+                plats: [{ name: 'Assortiment de canelés bordelais', desc: 'Canelés maison, caramélisés à l\'extérieur, moelleux à l\'intérieur.', image: 'https://images.unsplash.com/photo-1608219990949-e424ac54515f?w=300', allergens: ['Gluten', 'Lactose', 'Œufs'] }],
+                desserts: [{ name: 'Mignardises chocolat', desc: "Assortiment de bouchées au chocolat noir et lait.", image: 'https://images.unsplash.com/photo-1548907040-4baa42d10919?w=300', allergens: ['Lactose', 'Fruits à coque'] }]
+            },
+            stock: 20,
+            rating: 4.9
         }
     ];
 }
