@@ -32,6 +32,22 @@
             "updated_at": "2026-07-15T21:58:50+02:00",
             "_id": "nosql_6a57e67a7c3404.03768656",
             "created_at": "2026-07-15T21:58:50+02:00"
+        },
+        {
+            "order_id": 3,
+            "old_status": "livraison",
+            "new_status": "terminee",
+            "updated_at": "2026-07-17T15:43:04+02:00",
+            "_id": "nosql_6a5a3168279980.73592513",
+            "created_at": "2026-07-17T15:43:04+02:00"
+        },
+        {
+            "order_id": 2,
+            "old_status": "acceptee",
+            "new_status": "livraison",
+            "updated_at": "2026-07-17T15:43:13+02:00",
+            "_id": "nosql_6a5a31712e53c1.85794463",
+            "created_at": "2026-07-17T15:43:13+02:00"
         }
     ]
 }

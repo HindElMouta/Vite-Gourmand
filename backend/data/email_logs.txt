@@ -25,3 +25,21 @@ L'équipe Vite & Gourmand.
 
 ============================================================
 
+============================================================
+DATE : 2026-07-17 15:43:04
+DESTINATAIRE : client@demo.fr
+SUJET : Donnez votre avis sur votre buffet - Vite & Gourmand (#3)
+------------------------------------------------------------
+Bonjour Jean,
+
+Votre commande #3 est désormais marquée comme terminée. Nous espérons que le repas vous a plu !
+
+Nous vous invitons à vous connecter à votre compte client pour nous laisser une note (de 1 à 5) et un commentaire sur votre expérience.
+Votre avis est précieux pour nous aider à faire évoluer nos menus et à accroître notre visibilité à Bordeaux.
+
+Pour déposer votre avis, connectez-vous et rendez-vous dans votre Espace Client.
+
+À très bientôt pour vos prochains événements,
+L'équipe Vite & Gourmand.
+============================================================
+
