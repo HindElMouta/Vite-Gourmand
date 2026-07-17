@@ -92,7 +92,7 @@ Déplacez l'intégralité du dossier `vite-gourmand/` dans le répertoire public
 
 ## 👤 Comptes de Test Générés
 
-Pour valider les différents parcours utilisateur, connectez-vous avec les identifiants suivants (mot de passe commun : **Password123!**) :
+Pour valider les différents parcours utilisateur, connectez-vous avec les identifiants suivants (les mots de passe s'afficheront lors de l'initialisation de la base de données) :
 
 1. **Administrateur Principal (José)** :
    - E-mail : `jose@vitegourmand.fr`
