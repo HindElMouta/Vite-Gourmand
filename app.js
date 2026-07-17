@@ -410,29 +410,28 @@ function renderDetail() {
     }
 
     // Composition
+    const composition = menu.composition || { entrées: [], plats: [], desserts: [] };
+
     const renderCourse = (listId, array) => {
         const node = document.getElementById(listId);
         if (!node) return;
         node.innerHTML = '';
         if (!array || array.length === 0) {
-            node.parentNode.style.display = 'none';
+            if (node.parentNode) node.parentNode.style.display = 'none';
             return;
         }
         node.parentNode.style.display = 'block';
         array.forEach(item => {
             const card = document.createElement('div');
             card.className = 'course-card';
-            
-            // Allergènes
             const allergensHtml = item.allergens && item.allergens.length > 0
                 ? `<div style="font-size: 0.75rem; color: var(--color-danger); margin-top: 6px;">⚠️ Allergènes : ${item.allergens.join(', ')}</div>`
                 : '';
-
             card.innerHTML = `
-                <img class="course-card-img" src="${item.image}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=150'">
+                <img class="course-card-img" src="${item.image || ''}" alt="${item.name}" onerror="this.src='https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=150'">
                 <div class="course-card-content">
                     <h4>${item.name}</h4>
-                    <p>${item.desc}</p>
+                    <p>${item.desc || ''}</p>
                     ${allergensHtml}
                 </div>
             `;
@@ -440,9 +439,10 @@ function renderDetail() {
         });
     };
 
-    renderCourse('composition-entrees', menu.composition.entrées);
-    renderCourse('composition-plats', menu.composition.plats);
-    renderCourse('composition-desserts', menu.composition.desserts);
+    renderCourse('composition-entrees', composition.entrées || composition.entrees);
+    renderCourse('composition-plats',   composition.plats);
+    renderCourse('composition-desserts', composition.desserts);
+
 
     // Calculateur
     STATE.calculator.guests = Math.max(menu.minPax, STATE.calculator.guests);
@@ -2111,3 +2111,35 @@ function getMockMenus() {
         }
     ];
 }
+
+// --- FIX GLOBAL : Fermeture des modales (Échap, clic extérieur, boutons) ---
+(function initModalCloseHandlers() {
+    // 1. Touche Échap ferme toute modale ouverte
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal, [id$="-modal"]').forEach(m => {
+                if (m.style.display === 'flex' || m.style.display === 'block') {
+                    m.style.display = 'none';
+                }
+            });
+        }
+    });
+
+    // 2. Clic sur le fond (hors du contenu) ferme la modale
+    document.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target.classList.contains('modal') || target.id.endsWith('-modal')) {
+            // On ferme seulement si on clique sur le conteneur lui-même, pas son contenu
+            target.style.display = 'none';
+        }
+    });
+
+    // 3. Tout bouton avec .modal-close ou [data-close-modal] ferme sa modale parente
+    document.addEventListener('click', (e) => {
+        const closer = e.target.closest('.modal-close, [data-close-modal]');
+        if (closer) {
+            const modal = closer.closest('.modal, [id$="-modal"]');
+            if (modal) modal.style.display = 'none';
+        }
+    });
+})();
