@@ -61,7 +61,10 @@ vite-gourmand/
 ├── assets/                    # Images de la charte graphique
 ├── index.html                 # Layout principal de l'application (SPA)
 ├── style.css                  # Styles CSS et Design System
-└── app.js                     # Logique d'interactivité JS
+├── app.js                     # Logique d'interactivité JS
+├── Procfile                  # Fichier de configuration de l'infrastructure Heroku
+└── composer.json             # Fichier de déclaration du runtime PHP pour le Cloud
+
 ```
 
 ---
